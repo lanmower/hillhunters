@@ -1,7 +1,7 @@
 /*global Ground */
 
 import '../imports/client';
-import Ground from 'meteor/ground:db';
+import { Ground } from 'meteor/ground:db';
 import "react-input-range/lib/css/index.css";
 
 import Decks from "/imports/api/Decks/Decks.js";
