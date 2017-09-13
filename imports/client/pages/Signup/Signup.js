@@ -81,47 +81,61 @@ class Signup extends React.Component {
 
   render() {
     return (<div className="Signup">
-          <Navigation title="Profile"  />
-          <h4 className="page-header">Sign Up</h4>
-              <OAuthLoginButtons
-                services={['facebook', 'github', 'google']}
-                emailMessage={{
-                  offset: 97,
-                  text: 'Sign Up with an Email Address',
-                }}
-              />
-          <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-            First Name
-                  <input
-                    type="text"
-                    name="firstName"
-                    ref={firstName => (this.firstName = firstName)}
-                    className="form-control"
-                  />
-                  Last Name
-                  <input
-                    type="text"
-                    name="lastName"
-                    ref={lastName => (this.lastName = lastName)}
-                    className="form-control"
-                  />
-              Email Address
-              <input
-                type="email"
-                name="emailAddress"
-                ref={emailAddress => (this.emailAddress = emailAddress)}
-                className="form-control"
-              />
+      <Navigation title="Profile" />
+      <h4 className="page-header">Sign Up</h4>
+      <OAuthLoginButtons
+        services={['facebook', 'github', 'google']}
+        emailMessage={{
+          offset: 97,
+          text: 'Sign Up with an Email Address',
+        }}
+      />
+      <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+        <FormGroup style={formgroupstyle}>
+          <FormLabel style={formlabelstyle}>First Name</FormLabel>
+          <input
+            type="text"
+            name="firstName"
+            ref={firstName => (this.firstName = firstName)}
+            className="form-control"
+          />
+        </FormGroup>
+        <FormGroup style={formgroupstyle}>
+          <FormLabel style={formlabelstyle}>
+            Last Name
+              </FormLabel>
+          <input
+            type="text"
+            name="lastName"
+            ref={lastName => (this.lastName = lastName)}
+            className="form-control"
+          />
+        </FormGroup>
+        <FormGroup style={formgroupstyle}>
+          <FormLabel style={formlabelstyle}>
+            Email Address
+              </FormLabel>
+          <input
+            type="email"
+            name="emailAddress"
+            ref={emailAddress => (this.emailAddress = emailAddress)}
+            className="form-control"
+          />
+        </FormGroup>
+        <FormGroup style={formgroupstyle}>
+          <FormLabel style={formlabelstyle}>
             Password
-              <input
-                type="password"
-                name="password"
-                ref={password => (this.password = password)}
-                className="form-control"
-              />
-            <SnackbarContent message="Use at least six characters."/>
+              </FormLabel>
+          <input
+            type="password"
+            name="password"
+            ref={password => (this.password = password)}
+            className="form-control"
+          />
+        </FormGroup>
+        Use at least six characters.
             <Button type="submit">Sign Up</Button>
-              Already have an account? <Link to="/login">Log In</Link>.
+        Already have an account? <Link to="/login">Log In</Link>.
           </form>
     </div>);
   }

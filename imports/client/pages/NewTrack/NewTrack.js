@@ -56,6 +56,9 @@ class NewTrack extends React.Component {
   startTracking() {
     console.log('start');
     const self = this;
+    self.setState({
+      tracking: true
+    });
 
     Location.startWatching(function(location) {
       var lng = 0,
