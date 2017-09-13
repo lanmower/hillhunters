@@ -7,11 +7,15 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import AuthenticatedNavigation from '../AuthenticatedNavigation/AuthenticatedNavigation.js';
 import PublicNavigation from '../PublicNavigation/PublicNavigation.js';
+import OfflineNavigation from '../OfflineNavigation/OfflineNavigation.js';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import Loading from '../Loading/Loading.js';
+
+
+
 class Navigation extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -21,13 +25,14 @@ class Navigation extends React.Component {
     loading: PropTypes.bool
   }
   render() {
-    const { match, location, history, title, authenticated, loading, button } = this.props
-
+    const { match, location, history, title, authenticated, loading, button, connected } = this.props
+    const authenticatedDisplay = (props) => authenticated ? <AuthenticatedNavigation {...props} />:<PublicNavigation {...props}/>
+    
     return (
       <div>
         <AppBar position="static">
           <Toolbar>
-              {authenticated ? <AuthenticatedNavigation {...this.props} />:<PublicNavigation />}
+              {!connected ? <OfflineNavigation {...this.props} />:<authenticatedDisplay />}
             <Typography type="title" color="inherit">
               {title}
             </Typography>

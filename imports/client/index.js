@@ -27,7 +27,9 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 
-const AppRouter = props => (
+const AppRouter = props => {
+  console.log(props.connected);
+  return (
   !props.loading ?
     <Router>
       <Switch>
@@ -46,8 +48,16 @@ const AppRouter = props => (
           <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
           <Route component={NotFound} />
       </Switch>
-    </Router> : <div>loading</div>
-);
+    </Router> : <Router>
+      <Switch>
+          <Route exact path="/" component={Index} {...props} />
+          <Route exact path="/tracks/new" component={NewTrack} {...props} />
+          <Route exact path="/tracks" component={Tracks} {...props} />
+          <Route component={NotFound} />
+      </Switch>
+    </Router>
+    
+)};
 
 AppRouter.propTypes = {
   loading: PropTypes.bool.isRequired
@@ -65,12 +75,14 @@ const AppContainer = createContainer(() => {
   const loading = !Roles.subscription.ready();
   const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
   const emailAddress = user && user.emails && user.emails[0].address;
+  const { connected } = Meteor.status();
   return {
     loading,
     loggingIn,
     authenticated: !loggingIn && !!userId,
     name: name || emailAddress,
-    roles: !loading && Roles.getRolesForUser(userId)
+    roles: !loading && Roles.getRolesForUser(userId),
+    connected: connected
   };
 }, AppRouter);
 

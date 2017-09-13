@@ -89,13 +89,14 @@ class Tracks extends React.Component {
       tracks,
       match,
       history,
-      loading
+      loading,
+      connected
     } = this.props;
-
+    console.log(this.props);
     const {containerstyle} = Meteor;
     return (
       <div className="Tracks">
-    <Navigation title="Tracks" loading={loading} button={(tracks.length?<IconButton onClick={(e) => this.handleUpload(e)} style={{marginRight: "0px", marginLeft: "auto" }} aria-label="Upload"><UploadIcon /></IconButton>:false)} />
+    <Navigation title="Tracks" loading={loading} button={((tracks.length && connected)?<IconButton onClick={(e) => this.handleUpload(e)} style={{marginRight: "0px", marginLeft: "auto" }} aria-label="Upload"><UploadIcon /></IconButton>:false)} />
     <Button fab style={{margin: 0, top: 'auto', right: 20, bottom: 20, left: 'auto', position: 'fixed'}} color="primary" aria-label="add" onClick={()=>{history.push('/tracks/new')}}>
       <AddIcon />
     </Button>
@@ -138,6 +139,7 @@ function GetTracksContainer(Tracks) {
   return createContainer(() => {
     return {
       tracks: TracksCollection.find().fetch(),
+      connected: Meteor.status().connected
     };
   }, Tracks);
 }
