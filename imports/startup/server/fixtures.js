@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import Documents from '../../api/Documents/Documents';
-
+/*
 const documentsSeed = userId => ({
   collection: Documents,
   environments: ['development', 'staging'],
@@ -51,3 +51,4 @@ seeder(Meteor.users, {
     };
   },
 });
+*/

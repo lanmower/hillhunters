@@ -15,8 +15,7 @@ const OAuthLoginButtons = ({ services, emailMessage }) => (services.length ? (
 ) : <div />);
 
 OAuthLoginButtons.propTypes = {
-  services: PropTypes.array.isRequired,
-  emailMessage: PropTypes.object.isRequired,
+  services: PropTypes.array.isRequired
 };
 
 const verificationComplete = new ReactiveVar(false);
