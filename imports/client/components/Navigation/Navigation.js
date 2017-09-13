@@ -15,6 +15,10 @@ import { Roles } from 'meteor/alanning:roles';
 import Loading from '../Loading/Loading.js';
 
 
+const AuthenticatedDisplay = (props) => {
+  const {authenticated} = props;
+  return authenticated ? <AuthenticatedNavigation {...props} />:<PublicNavigation {...props}/>
+}
 
 class Navigation extends React.Component {
   static propTypes = {
@@ -26,13 +30,13 @@ class Navigation extends React.Component {
   }
   render() {
     const { match, location, history, title, authenticated, loading, button, connected } = this.props
-    const authenticatedDisplay = (props) => authenticated ? <AuthenticatedNavigation {...props} />:<PublicNavigation {...props}/>
+    console.log(connected);
     
     return (
       <div>
         <AppBar position="static">
           <Toolbar>
-              {!connected ? <OfflineNavigation {...this.props} />:<authenticatedDisplay />}
+              {!connected ? <OfflineNavigation {...this.props} />:<AuthenticatedDisplay {...this.props}/>}
             <Typography type="title" color="inherit">
               {title}
             </Typography>
@@ -52,7 +56,8 @@ export default withRouter(createContainer(() => {
   return {
     loggingIn,
     authenticated: !loggingIn && !!userId,
-    roles: !loading && Roles.getRolesForUser(userId)
+    roles: !loading && Roles.getRolesForUser(userId),
+    connected: Meteor.status().connected
   };
 }, Navigation));
 
