@@ -25,10 +25,9 @@ const handleRemove = (deckId, history) => {
   }
 };
 
-const groupstyle = {paddingTop:"10px", paddingBottom:"10px"};
-const labelstyle = {paddingTop:"0px", paddingBottom:"10px"};
-const containerstyle = {paddingLeft:"40px", paddingRight:"40px", paddingBottom:"80px"};
-const ViewDeck = ({ doc, match, history, loading}) => (doc ? (
+const ViewDeck = ({ doc, match, history, loading}) => {
+  const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
+  return (doc ? (
     <div className="ViewDeck">
       <Navigation title={`Viewing "${doc.name}"`} loading={loading} />
       <div style={containerstyle}>
@@ -46,7 +45,8 @@ const ViewDeck = ({ doc, match, history, loading}) => (doc ? (
         <div style={groupstyle}><div style={labelstyle}>Curve</div><img style={{height:"2em"}} src={"/images/curves/"+doc.curve+".png"} alt={doc.curve}/></div>
       </div>
     </div>
-  ) : <NotFound />);
+  ) : <NotFound />)
+}
 
 
 

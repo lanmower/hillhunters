@@ -92,13 +92,14 @@ class Tracks extends React.Component {
       loading
     } = this.props;
 
+    const {containerstyle} = Meteor;
     return (
       <div className="Tracks">
     <Navigation title="Tracks" loading={loading} button={(tracks.length?<IconButton onClick={(e) => this.handleUpload(e)} style={{marginRight: "0px", marginLeft: "auto" }} aria-label="Upload"><UploadIcon /></IconButton>:false)} />
     <Button fab style={{margin: 0, top: 'auto', right: 20, bottom: 20, left: 'auto', position: 'fixed'}} color="primary" aria-label="add" onClick={()=>{history.push('/tracks/new')}}>
       <AddIcon />
     </Button>
-        {tracks.length ? <List>
+        {tracks.length ? <List style={containerstyle}>
           {tracks.map(({ _id, startTime, deck}) => {
           const age = Moment(startTime).fromNow();
 
@@ -114,7 +115,7 @@ class Tracks extends React.Component {
           )}
         )}
     </List>    
-    : <div>
+    : <div style={containerstyle}>
         <Typography type="headline" component="h3">
           All tracks are up to date.
         </Typography>

@@ -69,25 +69,13 @@ class Login extends React.Component {
       }
       else {
         Bert.alert('Welcome back!', 'success');
-        history.push('/documents');
+        history.push('/tracks');
       }
     });
   }
 
   render() {
-    const formgroupstyle = {
-      paddingTop: "10px",
-      paddingBottom: "10px"
-    };
-    const formlabelstyle = {
-      paddingTop: "0px",
-      paddingBottom: "10px"
-    };
-    const containerstyle = {
-      paddingLeft: "40px",
-      paddingRight: "40px",
-      paddingBottom: "80px"
-    };
+    const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
     return (<div className="Login">
           <Navigation title="Sign in" />
           <div style={containerstyle}>

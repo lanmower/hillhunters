@@ -10,6 +10,9 @@ import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 import Navigation from '../../components/Navigation/Navigation';
+import FormGroup from 'material-ui/Form/FormGroup';
+import FormLabel from 'material-ui/Form/FormLabel';
+import { Meteor } from 'meteor/meteor';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -80,14 +83,16 @@ class Signup extends React.Component {
   }
 
   render() {
+    const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
     return (<div className="Signup">
       <Navigation title="Profile" />
+      <div style={containerstyle}>
       <h4 className="page-header">Sign Up</h4>
       <OAuthLoginButtons
         services={['facebook', 'github', 'google']}
         emailMessage={{
           offset: 97,
-          text: 'Sign Up with an Email Address',
+          text: '',
         }}
       />
       <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
@@ -132,11 +137,14 @@ class Signup extends React.Component {
             ref={password => (this.password = password)}
             className="form-control"
           />
+          Use at least six characters.
         </FormGroup>
-        Use at least six characters.
-            <Button type="submit">Sign Up</Button>
-        Already have an account? <Link to="/login">Log In</Link>.
-          </form>
+        <FormGroup style={formgroupstyle}>
+          <Button type="submit" raised color="primary">Sign Up</Button>
+          Already have an account? <Link to="/signup">Log In</Link>.
+              </FormGroup>
+      </form>
+    </div>
     </div>);
   }
 }

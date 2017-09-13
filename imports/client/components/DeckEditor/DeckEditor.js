@@ -168,9 +168,8 @@ class DeckEditor extends React.Component {
       doc
     } = this.props;
     const state = this.state;
-    const formgroupstyle = {paddingTop:"10px", paddingBottom:"10px"};
-    const formlabelstyle = {paddingTop:"0px", paddingBottom:"10px"};
-    return (<form  style={{paddingLeft:"40px", paddingRight:"40px", paddingBottom:"80px"}} ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+    const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
+    return (<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
       <FormGroup style={formgroupstyle}>
         <Input
           id="name"

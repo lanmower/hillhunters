@@ -26,9 +26,7 @@ const handleRemove = (trackId, history) => {
 };
 
 const renderTrack = ({doc, match, history, loading}) => {
-  const groupstyle = {paddingTop:"10px", paddingBottom:"10px"};
-  const labelstyle = {paddingTop:"0px", paddingBottom:"10px"};
-  const containerstyle = {paddingLeft:"40px", paddingRight:"40px", paddingBottom:"80px"};
+  const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
   return (doc ? (
   <div className="ViewTrack">
     <Navigation title={doc.name?`Viewing "${doc.name}"`:"View deck"} loading={loading} />

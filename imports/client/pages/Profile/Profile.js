@@ -118,10 +118,9 @@ class Profile extends React.Component {
   }
 
   renderPasswordUser(loading, user) {
-    const formgroupstyle = {paddingTop:"10px", paddingBottom:"10px"};
-    const formlabelstyle = {paddingTop:"0px", paddingBottom:"10px"};
+    const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
 
-    return !loading ? (<div>
+    return !loading ? (<div style={containerstyle}>
       <FormGroup style={formgroupstyle}>
       <FormLabel style={formlabelstyle}>First Name</FormLabel>
             
@@ -193,9 +192,7 @@ class Profile extends React.Component {
 
   render() {
     const { loading, user } = this.props;
-    const formgroupstyle = {paddingTop:"10px", paddingBottom:"10px"};
-    const formlabelstyle = {paddingTop:"0px", paddingBottom:"10px"};
-    const containerstyle = {paddingLeft:"40px", paddingRight:"40px", paddingBottom:"80px"};
+    const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
     return (<div className="Profile">
         <Navigation title={"Profile"} />
         <form  style={containerstyle} ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
