@@ -22,6 +22,7 @@ import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Profile from './pages/Profile/Profile';
 import NotFound from './pages/NotFound/NotFound';
 import Typography from 'material-ui/Typography';
+import Currencies from './pages/Currencies/Currencies';
 import './globalstyle.js';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
@@ -44,6 +45,7 @@ const AppRouter = props => {
           <Public path="/signup" component={Signup} {...props} />
           <Public path="/login" component={Login} {...props} />
           <Public path="/logout" component={Logout} {...props} />
+          <Public path="/currencies" component={Currencies} {...props} />
           <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
           <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
           <Route component={NotFound} />

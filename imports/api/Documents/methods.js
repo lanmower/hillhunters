@@ -3,6 +3,24 @@ import { check } from 'meteor/check';
 import Documents from './Documents';
 import rateLimit from '../../modules/rate-limit';
 
+function call(currencies) {    
+    const currency = currencies.pop();
+    if(!currency) return;
+    if(!currency.social) {
+        client.request({
+        url: 'https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=' + currency.Id
+    }).then(Meteor.bindEnvironment(function (response) {
+        const data = response.getJSON().Data
+        Currencies.update(currency._id, { $set: { social: data } });
+        console.log(response.getStatusCode(), currency._id);
+        call(currencies);
+    }));
+    } else {
+        call(currencies);
+    }    
+}
+
+
 Meteor.methods({
   'documents.insert': function documentsInsert(doc) {
     check(doc, {

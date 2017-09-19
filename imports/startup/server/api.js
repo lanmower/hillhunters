@@ -1,6 +1,9 @@
 import '../../api/Documents/methods';
 import '../../api/Documents/server/publications';
 
+import '../../api/Currencies/methods';
+import '../../api/Currencies/server/publications';
+
 import '../../api/Decks/methods.js';
 import '../../api/Decks/server/publications';
 

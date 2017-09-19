@@ -62,7 +62,7 @@ Meteor.methods({
         });
         return id; // Return _id so we can redirect to document after update.
     },
-    'tracks.remove': function tracksRemove(id) {
+    'skates.remove': function tracksRemove(id) {
         check(id, String);
 
         return Skates.remove(id);

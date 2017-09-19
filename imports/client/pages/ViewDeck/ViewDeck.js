@@ -39,10 +39,10 @@ const ViewDeck = ({ doc, match, history, loading}) => {
             <DeleteIcon />
           </IconButton>
         </div>
-        <div style={groupstyle}><div style={labelstyle}>Shape</div><img style={{height:"2em"}} src={"/images/shapes/"+doc.shape+".png"} alt={doc.shape}/></div>
-        <div style={groupstyle}><div style={labelstyle}>Edge</div><img style={{height:"2em"}} src={"/images/edges/"+doc.edge+".png"} alt={doc.edge}/></div>
-        <div style={groupstyle}><div style={labelstyle}>Mount</div><img style={{height:"2em"}} src={"/images/mount/"+doc.mount+".png"} alt={doc.mount}/></div>
-        <div style={groupstyle}><div style={labelstyle}>Curve</div><img style={{height:"2em"}} src={"/images/curves/"+doc.curve+".png"} alt={doc.curve}/></div>
+        <div style={formgroupstyle}><div style={formlabelstyle}>Shape</div><img style={{height:"2em"}} src={"/images/shapes/"+doc.shape+".png"} alt={doc.shape}/></div>
+        <div style={formgroupstyle}><div style={formlabelstyle}>Edge</div><img style={{height:"2em"}} src={"/images/edges/"+doc.edge+".png"} alt={doc.edge}/></div>
+        <div style={formgroupstyle}><div style={formlabelstyle}>Mount</div><img style={{height:"2em"}} src={"/images/mount/"+doc.mount+".png"} alt={doc.mount}/></div>
+        <div style={formgroupstyle}><div style={formlabelstyle}>Curve</div><img style={{height:"2em"}} src={"/images/curves/"+doc.curve+".png"} alt={doc.curve}/></div>
       </div>
     </div>
   ) : <NotFound />)
