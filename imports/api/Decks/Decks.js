@@ -65,15 +65,19 @@ Decks.schema = new SimpleSchema({
   },
   wheelhardness: {
     type: Number,
-    label: 'Grip tape type',
+    label: 'Wheel hardness',
   },
   wheelsize: {
     type: Number,
-    label: 'Grip tape type',
+    label: 'Wheel size',
+  },
+  boardlength: {
+    type: Number,
+    label: 'Board length',
   },
   bearings: {
     type: String,
-    label: 'Grip tape type',
+    label: 'Bearing type',
   },
 });
 

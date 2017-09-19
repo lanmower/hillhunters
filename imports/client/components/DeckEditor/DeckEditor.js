@@ -39,6 +39,7 @@ class DeckEditor extends React.Component {
       bushingHardness:83,
       wheelhardness:78,
       wheelsize:80,
+      boardlength:80,
       bearings:''
     };
   }
@@ -113,7 +114,10 @@ class DeckEditor extends React.Component {
           required: 'specify a wheel hardness.',
         },
         wheelsize: {
-          required: 'specify a wheel size.',
+          required: 'specify wheel size.',
+        },
+        boardlength: {
+          required: 'specify board length.',
         },
         bearings: {
           required: 'specify a bearing tolerance.',
@@ -322,6 +326,18 @@ class DeckEditor extends React.Component {
     		value={state.wheelsize}
 				onChange={(value) => {
       		this.setState({ wheelsize:value });
+      	}}
+    		formatLabel={value => `${value}mm`}
+       />
+      </FormGroup>
+      <FormGroup style={formgroupstyle}>
+      <FormLabel style={formlabelstyle}>Board length</FormLabel>
+       <InputRange
+        maxValue={110}
+        minValue={65}
+    		value={state.boardlength}
+				onChange={(value) => {
+      		this.setState({ boardlength:value });
       	}}
     		formatLabel={value => `${value}mm`}
        />

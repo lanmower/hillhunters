@@ -18,6 +18,7 @@ Meteor.methods({
       wheelhardness: Number,
       bushingHardness: Number,
       wheelsize: Number,
+      boardlength: Number,
       bearings: String
     });
     const deck = Decks.insert({ owner: this.userId, ...doc });
@@ -38,6 +39,7 @@ Meteor.methods({
       wheelhardness: Number,
       bushingHardness: Number,
       wheelsize: Number,
+      boardlength: Number,
       bearings: String
       });
 
