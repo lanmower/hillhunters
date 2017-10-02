@@ -148,6 +148,7 @@ class DeckEditor extends React.Component {
       griptape: this.state.griptape,
       wheelhardness: this.state.wheelhardness,
       wheelsize: this.state.wheelhardness,
+      boardlength: this.state.boardlength,
       bearings: this.state.bearings
     };
 
@@ -390,6 +391,7 @@ DeckEditor.defaultProps = {
     bushingHardness: 83,
     wheelhardness: 78,
     wheelsize: 80,
+    boardlength: 80,
     bearings: ''
   },
 };
