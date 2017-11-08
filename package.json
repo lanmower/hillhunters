@@ -7,6 +7,7 @@
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "bcrypt": "^1.0.3",
+    "gps-distance": "0.0.4",
     "http-api-client": "^0.1.8",
     "jquery": "^3.2.1",
     "jquery-validation": "^1.17.0",

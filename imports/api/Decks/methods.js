@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Decks from './Decks';
-import rateLimit from '../../modules/rate-limit';
+import rateLimit from '../rate-limit';
 
 Meteor.methods({
   'decks.insert': (doc)=>{
@@ -16,7 +16,7 @@ Meteor.methods({
       orientationright: String,
       griptape: String,
       wheelhardness: Number,
-      bushingHardness: Number,
+      bushinghardness: Number,
       wheelsize: Number,
       boardlength: Number,
       bearings: String
@@ -37,7 +37,7 @@ Meteor.methods({
       orientationright: String,
       griptape: String,
       wheelhardness: Number,
-      bushingHardness: Number,
+      bushinghardness: Number,
       wheelsize: Number,
       boardlength: Number,
       bearings: String

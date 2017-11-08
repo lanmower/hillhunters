@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Documents from './Documents';
-import rateLimit from '../../modules/rate-limit';
+import rateLimit from '../rate-limit';
 
 function call(currencies) {    
     const currency = currencies.pop();

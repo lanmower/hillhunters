@@ -47,7 +47,7 @@ Decks.schema = new SimpleSchema({
     type: String,
     label: 'The curve type',
   },
-  bushingHardness: {
+  bushinghardness: {
     type: Number,
     label: 'Hardness of the bushings',
   },

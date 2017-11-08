@@ -7,7 +7,7 @@ import {
 }
 from 'meteor/check';
 import Skates from './Skates';
-import rateLimit from '../../modules/rate-limit';
+import rateLimit from '../rate-limit';
 
 Meteor.methods({
     'skates.insert': (doc) => {
