@@ -27,6 +27,13 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import UploadIcon from 'material-ui-icons/Backup';
 import Moment from 'moment';
 import TracksCollection from '/imports/api/Tracks/Tracks';
+import { withStyles } from 'material-ui/styles';
+import { red } from 'material-ui/colors';
+const styles = theme => ({
+  container: {
+    background: red[500],
+  },
+});
 
 const handleRemove = (trackId) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -40,6 +47,24 @@ const handleRemove = (trackId) => {
     });
   }
 };
+
+
+class Track extends React.Component {
+  render() {
+    const { match, history, deck, distance, stop, startTime, _id } = this.props;
+    const age = Moment(startTime).fromNow();
+    return (
+      <ListItem button onClick={() => history.push(`${match.url}/${_id}`)} key={_id}>
+        <ListItemText primary={"Deck:" + deck.name + " distance: " + Math.abs(distance?distance:0)+"m"} secondary={age} />
+        <ListItemSecondaryAction>
+          <IconButton onClick={() => handleRemove(_id)} aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+    )
+  }
+}
 
 class Tracks extends React.Component {
 
@@ -101,18 +126,11 @@ class Tracks extends React.Component {
       <AddIcon />
     </Button>
         {tracks.length ? <List style={containerstyle}>
-          {tracks.map(({ _id, startTime, deck}) => {
+          {tracks.map(({ _id, startTime, deck, distance, stop}) => {
           const age = Moment(startTime).fromNow();
 
           return (
-          <ListItem button onClick={() => history.push(`${match.url}/${_id}`)} key={_id}>
-            <ListItemText primary={"Start: Deck:"+deck.name} secondary={age} />
-              <ListItemSecondaryAction>
-                <IconButton onClick={() => handleRemove(_id)} aria-label="Delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-          </ListItem>
+            <Track key={_id} _id={_id} match={match} history={history} startTime={startTime} deck={deck} distance={distance} stop={stop} />
           )}
         )}
     </List>    
@@ -144,4 +162,4 @@ function GetTracksContainer(Tracks) {
   }, Tracks);
 }
 
-export default GetTracksContainer(Tracks);
+export default withStyles(styles)(GetTracksContainer(Tracks));

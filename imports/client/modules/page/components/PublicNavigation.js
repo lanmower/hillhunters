@@ -18,7 +18,6 @@ class PublicNavigation extends React.Component {
   };
 
   handleClick = event => {
-    console.log('test');
     this.setState({ open: true, anchorEl: event.currentTarget });
   };
 

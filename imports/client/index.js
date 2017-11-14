@@ -25,7 +25,6 @@ const AppRouter = props => {
       }
     }
   }
-  console.log(routes);
   var x = 0;
   return (
   !props.loading ?

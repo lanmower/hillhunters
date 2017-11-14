@@ -23,6 +23,8 @@ import List, {
 }
 from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
+import Distance from 'gps-distance';
+import utils from '/imports/utils.js';
 
 const posToPoint = function(pos) {
   const point = {
@@ -54,7 +56,6 @@ class NewTrack extends React.Component {
   }
 
   startTracking() {
-    console.log('start');
     const self = this;
     self.setState({
       tracking: true
@@ -123,13 +124,25 @@ class NewTrack extends React.Component {
 
   stopTracking() {
     Location.stopWatching();
-    TracksCollection.update({
-      _id: this.state.id
-    }, {
-      $set: {
-        start: this.state.lastLocation
-      }
-    });
+    track = TracksCollection.findOne(this.state.id);
+    const distance = Distance(utils.trackingtoxy(track));
+    if(distance < 50) {
+      TracksCollection.remove(this.state.id);
+      Bert.alert('Distance too short, Track deleted', 'danger');
+    } else if(track.tracking.length < 10) {
+      TracksCollection.remove(this.state.id);
+      Bert.alert('Too few points, Track deleted', 'danger');
+    } else {
+      TracksCollection.update({
+        _id: this.state.id
+      }, {
+        $set: {
+          stop: this.state.lastLocation,
+          distance: distance
+        }
+      });
+
+    }
     this.setState(defaultState);
     clearInterval(this.interval);
     this.props.history.push('/tracks');
