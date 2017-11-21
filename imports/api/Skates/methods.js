@@ -11,32 +11,37 @@ import rateLimit from '../rate-limit';
 
 Meteor.methods({
     'skates.insert': (doc) => {
-        check(doc, {
-            deck: {
-                name: String,
-                shape: String,
-                edge: String,
-                mount: String,
-                curve: String,
-                orientationleft: String,
-                orientationright: String,
-                griptape: String,
-                wheelhardness: Number,
-                bushingHardness: Number,
-                wheelsize: Number,
-                bearings: String
-            },
-            startTime: Date,
-            start: Object,
-            tracking: Array
-            
-        });
-        const id = Skates.insert({
-            owner: this.userId,
-            ...doc
-        });
-        console.log(Skates.find().fetch());
-        return id;
+        console.log("Inserting:",doc);
+        try {
+            check(doc, {
+                deck: {
+                    name: String,
+                    shape: String,
+                    edge: String,
+                    mount: String,
+                    curve: String,
+                    orientationleft: String,
+                    orientationright: String,
+                    griptape: String,
+                    wheelhardness: Number,
+                    bushingHardness: Number,
+                    wheelsize: Number,
+                    bearings: String
+                },
+                startTime: Date,
+                start: Object,
+                tracking: Array
+                
+            });
+            const id = Skates.insert({
+                owner: this.userId,
+                ...doc
+            });
+            console.log(Skates.find().fetch());
+            return id;
+        } catch (e) {
+            console.error(e);
+        }
     },
     'skates.update': function skatesUpdate(doc) {
         console.log(doc);

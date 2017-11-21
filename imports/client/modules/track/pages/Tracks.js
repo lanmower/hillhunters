@@ -55,7 +55,7 @@ class Track extends React.Component {
     const age = Moment(startTime).fromNow();
     return (
       <ListItem button onClick={() => history.push(`${match.url}/${_id}`)} key={_id}>
-        <ListItemText primary={"Deck:" + deck.name + " distance: " + Math.abs(distance?distance:0)+"m"} secondary={age} />
+        <ListItemText primary={"Deck:" + deck.name + " distance: " + distance?distance:0+"m"} secondary={age} />
         <ListItemSecondaryAction>
           <IconButton onClick={() => handleRemove(_id)} aria-label="Delete">
             <DeleteIcon />

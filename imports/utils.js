@@ -1,3 +1,7 @@
+import Distance from 'gps-distance';
+
+
+
 const getArrayPoints = (tracking)=>{
   const arraypoints = [];
   for(const coordIndex in tracking) {

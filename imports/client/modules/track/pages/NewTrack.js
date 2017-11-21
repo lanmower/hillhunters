@@ -23,7 +23,6 @@ import List, {
 }
 from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
-import Distance from 'gps-distance';
 import utils from '/imports/utils.js';
 
 const posToPoint = function(pos) {
