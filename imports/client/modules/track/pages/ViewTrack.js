@@ -12,7 +12,7 @@ import EditIcon from 'material-ui-icons/Edit';
 import DeleteIcon from 'material-ui-icons/Delete';
 import IconButton from 'material-ui/IconButton';
 import Moment from 'moment';
-import Graph from '../components/Graph';
+import Polyline from 'react-polyline';
 import ReactDOMServer from 'react-dom/server';
 import Distance from 'gps-distance';
 import utils from '/imports/utils.js';
@@ -33,7 +33,7 @@ const handleRemove = (trackId, history) => {
 const renderTrack = ({doc, match, history, loading}) => {
   const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
   const age = Moment(doc.startTime).fromNow();
-  const xy = utils.trackingtoxy(doc);
+  const xy = xyarraytoobject(utils.trackingtoxy(doc));
   const lastTime = doc.tracking[doc.tracking.length-1].timestamp;
 
   const dist = Distance(utils.getArrayPoints(doc.tracking));
@@ -48,6 +48,15 @@ const renderTrack = ({doc, match, history, loading}) => {
     <Navigation title={"View track"} loading={loading} />
 
     <div style={containerstyle}>
+      <Polyline
+        coordinates={[
+          {x: 10, y: 20}
+          {x: 10, y: 100},
+          {x: 10, y: 200}
+        ]},
+        style="5px solid orange"
+        closed={true}
+      />
       <Graph data={xy}/>
       <div><div style={{fontWeight: "bold"}}>Tracked</div> {age}</div>
       <div><div style={{fontWeight: "bold"}}>Distance</div> {Math.round(dist*1000)} meters</div>

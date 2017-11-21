@@ -45,9 +45,19 @@ const trackingtoxy = (doc) => {
   return xy;
 }
 
+const xyarraytoobject = (xy) => {
+  const obj = {};
+  for(let index in xy) {
+    obj[index].x = xy[index][0];
+    obj[index].y = xy[index][1];
+  }
+  return obj;
+}
+
 export default {
     trackingtoxy,
     normalizearray,
     coordtoxy,
-    getArrayPoints
+    getArrayPoints,
+    xyarraytoobject
 };
