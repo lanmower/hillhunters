@@ -49,13 +49,9 @@ const renderTrack = ({doc, match, history, loading}) => {
 
     <div style={containerstyle}>
       <Polyline
-        coordinates={[
-          {x: 10, y: 20}
-          {x: 10, y: 100},
-          {x: 10, y: 200}
-        ]},
+        coordinates={xy}
         style="5px solid orange"
-        closed={true}
+        closed={false}
       />
       <Graph data={xy}/>
       <div><div style={{fontWeight: "bold"}}>Tracked</div> {age}</div>
