@@ -15,7 +15,7 @@ import Moment from 'moment';
 import ReactDOMServer from 'react-dom/server';
 import Distance from 'gps-distance';
 import utils from '/imports/utils.js';
-import LineChart from 'react-svg-line-chart'
+import Graph from '../components/Graph';
 
 const handleRemove = (trackId, history) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -33,7 +33,7 @@ const handleRemove = (trackId, history) => {
 const renderTrack = ({doc, match, history, loading}) => {
   const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
   const age = Moment(doc.startTime).fromNow();
-  const xy = xyarraytoobject(utils.trackingtoxy(doc));
+  const xy = utils.trackingtoxy(doc);
   const lastTime = doc.tracking[doc.tracking.length-1].timestamp;
 
   const dist = Distance(utils.getArrayPoints(doc.tracking));
@@ -48,10 +48,6 @@ const renderTrack = ({doc, match, history, loading}) => {
     <Navigation title={"View track"} loading={loading} />
 
     <div style={containerstyle}>
-      <LineChart
-          data={ xy }
-          nogrid
-        />
       <Graph data={xy}/>
       <div><div style={{fontWeight: "bold"}}>Tracked</div> {age}</div>
       <div><div style={{fontWeight: "bold"}}>Distance</div> {Math.round(dist*1000)} meters</div>

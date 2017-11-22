@@ -48,6 +48,7 @@ const trackingtoxy = (doc) => {
 const xyarraytoobject = (xy) => {
   const obj = {};
   for(let index in xy) {
+    obj[index] = {};
     obj[index].x = xy[index][0];
     obj[index].y = xy[index][1];
   }
