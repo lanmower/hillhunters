@@ -60,9 +60,8 @@ class NewTrack extends React.Component {
       tracking: true
     });
 
+    var lastLocation;
     Location.startWatching(function(location) {
-      var lng = 0,
-        lat = 0;
       if (!self.state.id && !self.state.inserting) {
         self.setState({
           inserting: true,
@@ -96,13 +95,26 @@ class NewTrack extends React.Component {
             console.log(error);
           }
         });
-      }
-      else {
+      } else {
         if (self.state.id) {
-          if (lng != location.longitude.toFixed(6) || lat != location.latitude.toFixed(6)) {
-
-            lng = location.longitude.toFixed(6);
-            lat = location.latitude.toFixed(6);
+          const lastLat = lastLocation?lastLocation.latitude:0;//.toFixed(6);
+          const lastLng = lastLocation?lastLocation.longitude:0;//.toFixed(6);
+          const currentLng = location.longitude;//.toFixed(6);
+          const currentLat = location.latitude;//.toFixed(6); 
+          const lastTime = lastLocation?lastLocation.timestamp:0;
+          const lastSpeed = lastLocation?lastLocation.speed:0;
+          const distCoords = [{latitude:lastLat, longitude:lastLng, time:lastTime},{latitude:currentLat, longitude:currentLng, time: location.timestamp}];
+          console.log(distCoords);
+          const km = location.meters = utils.getDistance(distCoords);
+          const meters = location.meters = km*1000;
+          const time = location.time = location.timestamp - lastTime;
+          const hour = location.hour = (((time/1000)/60)/60)/60;
+          const speed = location.speed = km/hour;
+          const acceleration = location.acceleration = (speed-lastSpeed)/(time/1000);
+          console.log(distCoords, meters);
+          if ((meters > 1 && speed < 100)|| self.state.points == 0) {
+            lastLocation = location;
+            console.log('set location', location);
             self.setState({
               lastLocation: location,
               points: self.state.points + 1
@@ -124,7 +136,7 @@ class NewTrack extends React.Component {
   stopTracking() {
     Location.stopWatching();
     track = TracksCollection.findOne(this.state.id);
-    const distance = Distance(utils.trackingtoxy(track));
+    const distance = utils.getDistance(utils.trackingtoxy(track));
     if(distance < 50) {
       TracksCollection.remove(this.state.id);
       Bert.alert('Distance too short, Track deleted', 'danger');

@@ -55,10 +55,15 @@ const xyarraytoobject = (xy) => {
   return obj;
 }
 
+const getDistance = (data)=>{
+  return Distance(getArrayPoints(data));
+}
+
 export default {
     trackingtoxy,
     normalizearray,
     coordtoxy,
     getArrayPoints,
-    xyarraytoobject
+    xyarraytoobject,
+    getDistance
 };

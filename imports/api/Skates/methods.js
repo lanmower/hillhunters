@@ -8,6 +8,7 @@ import {
 from 'meteor/check';
 import Skates from './Skates';
 import rateLimit from '../rate-limit';
+import utils from '/imports/utils.js';
 
 Meteor.methods({
     'skates.insert': (doc) => {
@@ -64,6 +65,7 @@ Meteor.methods({
             });
 
             const id = doc._id;
+
             Skates.update(id, {
                 $set: doc
             });

@@ -13,9 +13,8 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import IconButton from 'material-ui/IconButton';
 import Moment from 'moment';
 import ReactDOMServer from 'react-dom/server';
-import Distance from 'gps-distance';
-import utils from '/imports/utils.js';
 import Graph from '../components/Graph';
+import utils from '/imports/utils.js';
 
 const handleRemove = (trackId, history) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -36,7 +35,7 @@ const renderTrack = ({doc, match, history, loading}) => {
   const xy = utils.trackingtoxy(doc);
   const lastTime = doc.tracking[doc.tracking.length-1].timestamp;
 
-  const dist = Distance(utils.getArrayPoints(doc.tracking));
+  const dist = utils.getDistance(utils.getArrayPoints(doc.tracking));
   
   const time = Moment(lastTime).diff(doc.startTime);
   const ms = Moment.duration(time).as('milliseconds');
