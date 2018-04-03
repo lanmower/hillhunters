@@ -14,7 +14,6 @@ import IconButton from 'material-ui/IconButton';
 import Moment from 'moment';
 import ReactDOMServer from 'react-dom/server';
 import Distance from 'gps-distance';
-import utils from '/imports/utils.js';
 import Graph from '../components/Graph';
 
 const handleRemove = (trackId, history) => {

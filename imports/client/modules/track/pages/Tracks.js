@@ -29,6 +29,7 @@ import Moment from 'moment';
 import TracksCollection from '/imports/api/Tracks/Tracks';
 import { withStyles } from 'material-ui/styles';
 import { red } from 'material-ui/colors';
+
 const styles = theme => ({
   container: {
     background: red[500],

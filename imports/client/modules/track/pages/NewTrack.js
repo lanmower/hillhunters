@@ -11,6 +11,8 @@ import Moment from 'moment';
 import Location from '../location';
 import TracksCollection from '/imports/api/Tracks/Tracks';
 import DecksCollection from '/imports/api/Decks/Decks';
+import Distance from 'gps-distance';
+
 import {
   createContainer
 }
