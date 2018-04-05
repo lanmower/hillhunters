@@ -31,10 +31,10 @@ Meteor.methods({
                 startTime: Date,
                 start: Object,
                 tracking: Array
-                
             });
+            console.log(this.userId, Meteor.userId());
             const id = Skates.insert({
-                owner: this.userId,
+                owner: Meteor.userId(),
                 ...doc
             });
             console.log(Skates.find().fetch());

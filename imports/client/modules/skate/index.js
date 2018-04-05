@@ -1,9 +1,7 @@
-import list from './pages/Tracks';
-import create from './pages/NewTrack';
-import view from './pages/ViewTrack';
+import list from './pages/Skates';
+import view from './pages/ViewSkate';
 
 export default {routes:[
-        {path:"/tracks/new", component:create},
-        {path:"/tracks/:_id", component:view},
-        {path:"/tracks", component:list}
+        {path:"/skates/:_id", component:view},
+        {path:"/skates", component:list}
     ]};

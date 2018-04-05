@@ -15,6 +15,7 @@ import Moment from 'moment';
 import ReactDOMServer from 'react-dom/server';
 import Distance from 'gps-distance';
 import Graph from '../components/Graph';
+import utils from '/imports/utils.js';
 
 const handleRemove = (trackId, history) => {
   if (confirm('Are you sure? This is permanent!')) {

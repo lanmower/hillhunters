@@ -40,6 +40,7 @@ class Navigation extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
         >
+          <MenuItem onClick={()=>{history.push('/skates')}} >Skates</MenuItem>
           <MenuItem onClick={()=>{history.push('/tracks')}} >Tracking</MenuItem>
           <MenuItem onClick={()=>{history.push('/decks')}} >Decks</MenuItem>
           <MenuItem onClick={()=>{history.push('/profile')}} >Profile</MenuItem>

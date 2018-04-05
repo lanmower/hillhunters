@@ -9,7 +9,6 @@ class Index extends React.Component {
       <div className="Index">
         <Navigation title="Home" />
         {this.props.title}
-        <h1>Hill Hunters</h1>
         <p>The skating community.</p>
       </div>
     );
