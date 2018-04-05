@@ -1,0 +1,1 @@
+meteor run android-device --settings settings.json --server https://10.0.0.6

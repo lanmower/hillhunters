@@ -1,1 +1,0 @@
-meteor run android --settings settings-development.json
