@@ -6,7 +6,7 @@ import {
     check
 }
 from 'meteor/check';
-import Skates from './Skates';
+import Skates from './';
 import rateLimit from '../rate-limit';
 
 Meteor.methods({

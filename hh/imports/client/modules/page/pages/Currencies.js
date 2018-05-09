@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import Loading from '../../page/components/Loading';
+import Loading from '/imports/client/components/Loading';
 import CurrenciesCollection from '/imports/api/Currencies/Currencies';
 import { createContainer } from 'meteor/react-meteor-data';
 import AddIcon from 'material-ui-icons/Add';
 import DeleteIcon from 'material-ui-icons/Delete';
 import IconButton from 'material-ui/IconButton';
-import Navigation from '../../page/components/Navigation';
+import Navigation from '/imports/client/components/Navigation';
 import Moment from 'moment';
 
 import List, {

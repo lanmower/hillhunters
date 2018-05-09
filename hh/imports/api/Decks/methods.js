@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import Decks from './Decks';
+import Decks from './';
 import rateLimit from '../rate-limit';
 
 Meteor.methods({

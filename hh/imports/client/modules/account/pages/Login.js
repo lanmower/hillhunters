@@ -20,7 +20,7 @@ from 'meteor/themeteorchef:bert';
 import OAuthLoginButtons from '../components/OAuthLoginButtons';
 import AccountPageFooter from '../components/AccountPageFooter';
 import validate from '../../validate';
-import Navigation from '../../page/components/Navigation';
+import Navigation from '/imports/client/components/Navigation';
 import FormGroup from 'material-ui/Form/FormGroup';
 import FormLabel from 'material-ui/Form/FormLabel';
 
@@ -75,16 +75,15 @@ class Login extends React.Component {
   }
 
   render() {
-    const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
     return (<div className="Login">
-          <div style={containerstyle}>
+          <div>
           <h4 className="page-header">Log In</h4>
               <OAuthLoginButtons
                 services={['facebook', 'github', 'google']}
               />
           <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-              <FormGroup style={formgroupstyle}>
-              <FormLabel style={formlabelstyle}>Email Address</FormLabel>
+              <FormGroup>
+              <FormLabel>Email Address</FormLabel>
               <input
                 type="email"
                 name="emailAddress"
@@ -92,8 +91,8 @@ class Login extends React.Component {
                 className="form-control"
               />
               </FormGroup>
-              <FormGroup style={formgroupstyle}>
-              <FormLabel style={formlabelstyle}>Password</FormLabel>
+              <FormGroup>
+              <FormLabel>Password</FormLabel>
               <Link style={{position:"absolute", right:"50px", marginTop:"-4px"}} to="/recover-password">Forgot password?</Link>
               <input
                 type="password"
@@ -102,7 +101,7 @@ class Login extends React.Component {
                 className="form-control"
               />
               </FormGroup>
-              <FormGroup style={formgroupstyle}>
+              <FormGroup>
             <Button type="submit" raised color="primary">Log In</Button>
             {'Don\'t have an account?'} <Link to="/signup">Sign Up</Link>.
               </FormGroup>

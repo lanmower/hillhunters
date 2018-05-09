@@ -1,7 +1,7 @@
 import { Ground } from 'meteor/ground:db';
 import "react-input-range/lib/css/index.css";
 
-import Decks from "/imports/api/Decks/Decks.js";
+import Decks from "/imports/api/Decks";
 import "/imports/api/Skates/methods.js";
 import "/imports/client/";
 
@@ -18,8 +18,3 @@ Meteor.subscribe('decks', function() {
         }
     });
 });
-
-Meteor.decks.once('loaded', () => {
-});
-
-

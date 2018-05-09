@@ -1,1 +1,3 @@
-meteor run android-device --settings settings.json --server https://10.0.0.6
+set MONGO_URL=mongodb://localhost:3003/meteor
+
+meteor run android

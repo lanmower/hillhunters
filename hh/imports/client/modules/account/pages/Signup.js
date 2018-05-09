@@ -9,7 +9,7 @@ import OAuthLoginButtons from '../components/OAuthLoginButtons';
 import InputHint from '../../form/components/InputHint';
 import AccountPageFooter from '../components/AccountPageFooter';
 import validate from '../../validate';
-import Navigation from '../../page/components/Navigation';
+import Navigation from '/imports/client/components/Navigation';
 import FormGroup from 'material-ui/Form/FormGroup';
 import FormLabel from 'material-ui/Form/FormLabel';
 import { Meteor } from 'meteor/meteor';
@@ -86,7 +86,7 @@ class Signup extends React.Component {
     const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
     return (<div className="Signup">
       <Navigation title="Profile" />
-      <div style={containerstyle}>
+      <div >
       <h4 className="page-header">Sign Up</h4>
       <OAuthLoginButtons
         services={['facebook', 'github', 'google']}
@@ -96,8 +96,8 @@ class Signup extends React.Component {
         }}
       />
       <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-        <FormGroup style={formgroupstyle}>
-          <FormLabel style={formlabelstyle}>First Name</FormLabel>
+        <FormGroup>
+          <FormLabel>First Name</FormLabel>
           <input
             type="text"
             name="firstName"
@@ -105,8 +105,8 @@ class Signup extends React.Component {
             className="form-control"
           />
         </FormGroup>
-        <FormGroup style={formgroupstyle}>
-          <FormLabel style={formlabelstyle}>
+        <FormGroup>
+          <FormLabel>
             Last Name
               </FormLabel>
           <input
@@ -116,8 +116,8 @@ class Signup extends React.Component {
             className="form-control"
           />
         </FormGroup>
-        <FormGroup style={formgroupstyle}>
-          <FormLabel style={formlabelstyle}>
+        <FormGroup>
+          <FormLabel>
             Email Address
               </FormLabel>
           <input
@@ -127,8 +127,8 @@ class Signup extends React.Component {
             className="form-control"
           />
         </FormGroup>
-        <FormGroup style={formgroupstyle}>
-          <FormLabel style={formlabelstyle}>
+        <FormGroup>
+          <FormLabel>
             Password
               </FormLabel>
           <input
@@ -139,7 +139,7 @@ class Signup extends React.Component {
           />
           Use at least six characters.
         </FormGroup>
-        <FormGroup style={formgroupstyle}>
+        <FormGroup>
           <Button type="submit" raised color="primary">Sign Up</Button>
           Already have an account? <Link to="/signup">Log In</Link>.
               </FormGroup>

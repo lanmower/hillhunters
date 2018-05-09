@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
-import Navigation from '../components/Navigation';
+import Navigation from '/imports/client/components/Navigation';
 
 class Index extends React.Component {
   render() {
@@ -9,10 +9,6 @@ class Index extends React.Component {
       <div className="Index">
         <Navigation title="Home" />
         {this.props.title}
-<<<<<<< HEAD:imports/client/modules/page/pages/Index.js
-=======
-        <h1></h1>
->>>>>>> 16d8289678201a58cf96669a4eabde82c7718c83:hh/imports/client/modules/page/pages/Index.js
         <p>The skating community.</p>
       </div>
     );

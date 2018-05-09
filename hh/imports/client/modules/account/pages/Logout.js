@@ -1,6 +1,5 @@
 import React from 'react';
-import Navigation from '../../page/components/Navigation';
-
+import Navigation from '/imports/client/components/Navigation';
 
 const Logout = () => (
   <div className="Logout">

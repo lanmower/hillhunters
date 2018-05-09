@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import Icon from '../../page/components/Icon';
+import Icon from '/imports/client/components/Icon';
 
 const handleLogin = (service, callback) => {
   const options = {
