@@ -1,7 +1,6 @@
 // @flow weak
 
 import React, { Component } from 'react';
-import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
@@ -31,7 +30,7 @@ class Navigation extends React.Component {
     const { match, location, history } = this.props
     return (
       <div>
-        <IconButton color="secondary" aria-label="Menu" onClick={this.handleClick}>
+        <IconButton variant="raised" color="primary" style={{color:"white"}}  aria-label="Menu" onClick={this.handleClick}>
           <MenuIcon />
         </IconButton> 
         <Menu

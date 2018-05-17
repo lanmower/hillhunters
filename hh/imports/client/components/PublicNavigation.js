@@ -29,7 +29,7 @@ class PublicNavigation extends React.Component {
     const { match, location, history } = this.props
     return (
   <div>
-    <IconButton color="secondary" aria-label="Menu" onClick={this.handleClick}>
+    <IconButton variant="raised" color="primary" style={{color:"white"}} aria-label="Menu" onClick={this.handleClick}>
       <MenuIcon />
     </IconButton>
     <Menu

@@ -3,7 +3,6 @@ import '../../api/Decks/server/publications';
 
 import '../../api/Skates/server/publications.js';
 import '../../api/Skates/methods.js';
-import '../../api/Skates/server/publications.js';
 
 import '../../api/Pages/server/publications';
 import '../../api/Pages/methods';

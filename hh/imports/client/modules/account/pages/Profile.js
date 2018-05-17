@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SnackbarContent } from 'material-ui/Snackbar';
@@ -14,6 +12,7 @@ import FormGroup from 'material-ui/Form/FormGroup';
 import FormLabel from 'material-ui/Form/FormLabel';
 import Navigation from '/imports/client/components/Navigation';
 import SaveIcon from 'material-ui-icons/Save';
+import Paper from 'material-ui/Paper';
 
 
 class Profile extends React.Component {
@@ -192,12 +191,12 @@ class Profile extends React.Component {
   render() {
     const { loading, user } = this.props;
     const {formgroupstyle, formlabelstyle, containerstyle} = Meteor;
-    return (<div className="Profile">
+    return (<Paper className="Profile">
         <Navigation title={"Profile"} />
         <form   ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
           {this.renderProfileForm(loading, user)}
         </form>
-    </div>);
+    </Paper>);
   }
 }
 

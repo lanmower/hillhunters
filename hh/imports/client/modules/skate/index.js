@@ -50,7 +50,7 @@ const render = ({ doc, match, loading }) => {
 
 export default {
     routes: [
-        listRoute(Collection, renderDoc),
+        listRoute(Collection, renderDoc, null, true, false),
         viewRoute(Collection, render)
     ]
 };

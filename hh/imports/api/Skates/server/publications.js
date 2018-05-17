@@ -1,15 +1,12 @@
-/*import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import Skates from '../skates/Skates.js';
-
-Meteor.publish('posts', function posts(threadId) {
-  console.log(this.userId, threadId, Posts.find({ owner: this.userId, threadId }).fetch());
-  return Posts.find({ owner: this.userId, threadId });
+import Collection from '../';
+Meteor.publish(Collection._name, function hills() {
+  return Collection.find({ owner: this.userId });
 });
 
 // Note: documents.view is also used when editing an existing document.
-Meteor.publish('posts.view', function postsView(postId) {
-  check(postId, String);
-  return Posts.find({ _id: postId, owner: this.userId });
+Meteor.publish(Collection._name+'.view', function hillsView(_id) {
+  check(hillId, String);
+  return Collection.find({ _id, owner: this.userId });
 });
-*/

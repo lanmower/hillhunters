@@ -27,10 +27,6 @@ const render = ({ doc, match, loading }) => {
     const age = Moment(doc.startTime).fromNow();
     const data = utils.xyarraytoobject(utils.trackingtoxy(doc, 200));
     console.log(data);
-    const lastTime = doc.tracking[doc.tracking.length - 1].timestamp;
-
-    const dist = Distance(utils.getArrayPoints(doc.tracking));
-
     const time = Moment(lastTime).diff(doc.startTime);
     const ms = Moment.duration(time).as('milliseconds');
     const avgspeed = dist / (ms / 3600000)

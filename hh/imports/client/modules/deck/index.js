@@ -1,6 +1,5 @@
 import React from 'react';
 import Collection from '/imports/api/Decks';
-import ListDoc from '../crud/ListDoc';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import Loading from '/imports/client/components/Loading';
@@ -17,20 +16,13 @@ import EditIcon from 'material-ui-icons/Edit';
 import DeleteIcon from 'material-ui-icons/Delete';
 import Typography from 'material-ui/Typography';
 
-const addButton = (history) => {
-    return (<Button aria-label="add" onClick={()=>{history.push('/'+Collection._name+'/new')}}>
-      <AddIcon />
-    </Button>);
-}
 
 const renderDoc = ({ _id, name, shape, createdAt, updatedAt }) => {
     const primary = name;
     const secondary = Moment(createdAt).fromNow();
     const extra = null;
-    return (
-        <ListDoc key={_id} primary={primary} secondary={secondary} extra={extra} >
-        </ListDoc>
-    )
+    return { key:_id,primary,secondary,extra}
+    
 };
 
 const ViewContent = ({ doc, match, history, loading }) => {
@@ -123,7 +115,7 @@ export default {
         newRoute(Collection, Editor),
         viewRoute(Collection, ViewContent, false),
         editRoute(Collection, Editor, false),
-        listRoute(Collection, renderDoc, addButton, false)
+        listRoute(Collection, renderDoc, null, false)
     ]
 };
 

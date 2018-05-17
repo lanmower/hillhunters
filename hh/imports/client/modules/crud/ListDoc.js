@@ -20,7 +20,8 @@ const handleRemove = (_id, Collection) => {
     });
   }
 };
-const render = ({ match, history, primary, secondary, extra, _id }) => {
+const render = ({ match, history, info, Collection, _id }) => {
+  const {primary, secondary, extra} = info;
     return (
       <ListItem button onClick={() => history.push(`${match.url}/${_id}`)} key={_id}>
         {extra}
