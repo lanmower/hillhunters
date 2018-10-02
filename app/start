@@ -1,0 +1,4 @@
+export METEOR_CORDOVA_COMPAT_VERSION_ANDROID=hh
+export MONGO_URL=mongodb://localhost:27017/meteor
+
+meteor --production --settings ./settings.json --mobile-server https://hillhunters.dnsd.info --port 9000

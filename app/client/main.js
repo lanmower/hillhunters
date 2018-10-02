@@ -1,0 +1,2 @@
+/*global Ground */
+require('/imports');

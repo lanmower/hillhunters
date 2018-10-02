@@ -1,0 +1,3 @@
+cordova-plugin-geolocation@2.4.3
+org.flybuy.cordova.background-location-services@file://../cordovaplugs/background-geolocation-services/
+org.flybuy.nativeutils@file://../cordovaplugs/NativeUtils/
