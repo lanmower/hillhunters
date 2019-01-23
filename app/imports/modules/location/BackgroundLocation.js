@@ -24,7 +24,7 @@ var BackgroundLocation = {
     },
     havePlugin : function() {
         if(!this.plugin) {
-            throw new Meteor.Error(this.tag, 'Could not find the background location plugin, please run BackgroundLocation.getPlugin');
+            throw new Error('Could not find the background location plugin, please run BackgroundLocation.getPlugin');
         }
         return true;
     },
@@ -35,7 +35,7 @@ var BackgroundLocation = {
             this.config = config;
             this.plugin.configure(this.config);
         } else {
-            throw new Meteor.Error(this.tag, 'Config parameter must be a object');
+            throw new Error('Config parameter must be a object');
         }
     },
     registerForLocationUpdates: function(success, failure){
@@ -53,7 +53,7 @@ var BackgroundLocation = {
         if(!this.havePlugin()) return;
 
         if(!this.hasLocationCallback) {
-            throw new Meteor.Error(this.tag, 'You must register for location updates before starting background location updates');
+            throw new Error('You must register for location updates before starting background location updates');
         }
 
         this.plugin.start();

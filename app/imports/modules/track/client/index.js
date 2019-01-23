@@ -1,111 +1,213 @@
 import React from 'react';
-import Collection from '../collection';
-import ListDoc from '../../crud/client/ListDoc';
+import PropTypes from 'prop-types';
+import GpsFixedIcon from '@material-ui/icons/GpsFixed';
+import StopIcon from '@material-ui/icons/Stop';
+import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Checkbox from '@material-ui/core/Checkbox';
 import Moment from 'moment';
+import Location from './location';
 import Distance from 'gps-distance';
-//import Graph from '/imports/client/components/Graph';
-import utils from '../../utils.js';
-import {listRoute, viewRoute, newRoute} from '../../crud/client/crudRoutes.js';
-import NewTrack from './NewTrack';
-import New from '../../crud/client/New';
-import UploadIcon from '@material-ui/icons/Backup';
+import utils from '/imports/modules/utils.js';
+const posToPoint = function (pos) {
+  const point = {
+    "type": "Point",
+    "coordinates": [
+      pos.longitude,
+      pos.latitude
+    ]
+  };
+  return point;
+}
 
-Collection._name = "tracks";
+const defaultState = {
+  tracking: false,
+  lastLocation: false,
+  firstLocation: false,
+  start: new Date(),
+  time: false,
+  points: 0,
+  id: false,
+  deck: false,
+  inserting: false
+};
 
- const handleUpload = () => {
-    const tracks = Meteor.tracks.find();
-    for (const index in tracks) {
-      const doc = tracks[index];
-      const insert = {
-        start:doc.start,
-        startTime:doc.startTime,
-        deck: {
-          name: doc.deck.name,
-          shape: doc.deck.shape,
-          edge: doc.deck.edge,
-          mount: doc.deck.mount,
-          curve: doc.deck.curve,
-          bushinghardness: doc.deck.bushinghardness,
-          orientationleft: doc.deck.orientationleft,
-          orientationright: doc.deck.orientationright,
-          griptape: doc.deck.griptape,
-          wheelhardness: doc.deck.wheelhardness,
-          wheelsize: doc.deck.wheelsize,
-          bearings: doc.deck.bearings
-        },
-        tracking:doc.tracking
+class NewTrack extends React.Component {
+  constructor(props) {
+    super(props);
+    /*buttonStore.set(<Button id="test2" aria-label="track" onClick={() => { this.startTracking() }}>
+      <GpsFixedIcon />
+    </Button>);*/
+    const {navButtonStore} = props;
+    navButtonStore.set(<IconButton className="raised" color="primary" style={{color:"white"}} onClick={ this.startTracking.bind(this) }><GpsFixedIcon /></IconButton>);
 
-      }
-      console.log(insert);
-      Meteor.call('skates.insert', insert, (error, deckId) => {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-        }
-        else {
-          const confirmation = 'Tracks uploaded!';
-          Bert.alert(confirmation, 'success');
-          Meteor.tracks.remove(doc._id);
-        }
+    this.state = defaultState;
+  }
+
+  gotLocation (location) {
+    const { lastLocation } = this.state;
+    const collection = Meteor.modules.track.submissionsCollection;
+    if (!this.state.id && !this.state.inserting) {
+      this.setState({
+        inserting: true,
+        firstLocation: posToPoint(location)
       });
+      const _id = collection.insert({
+        startTime: new Date(),
+        start: posToPoint(location),
+        deck: collection.findOne(this.state.deck),
+        tracking: []
+      });
+      if (_id) {
+        this.setState({
+          id: _id,
+          start: new Date(),
+          tracking: true,
+          inserting: false
+        });
+        console.log(this.state);
+
+        this.interval =
+          setInterval(() => {
+            const age = Moment(new Date()).diff(this.state.start);
+            const ms = Moment.duration(age).as('milliseconds');
+            const time = Moment.utc(ms).format("HH:mm:ss.SSS");
+
+            this.setState({
+              time: time
+            });
+          }, 40);
+      }
+
+    } else {
+      if (this.state.id) {
+        const lastLat = lastLocation ? lastLocation.latitude : 0;//.toFixed(6);
+        const lastLng = lastLocation ? lastLocation.longitude : 0;//.toFixed(6);
+        const currentLng = location.longitude;//.toFixed(6);
+        const currentLat = location.latitude;//.toFixed(6);
+        const lastTime = lastLocation ? lastLocation.timestamp : 0;
+        const lastSpeed = lastLocation ? lastLocation.speed : 0;
+        const distCoords = [{coords:{ latitude: lastLat, longitude: lastLng, time: lastTime }}, {coords:{ latitude: currentLat, longitude: currentLng, time: location.timestamp }}];
+        console.log(distCoords);
+        const km = location.meters = utils.getDistance(distCoords);
+        const meters = location.meters = km * 1000;
+        const time = location.time = location.timestamp - lastTime;
+        const hour = location.hour = (((time / 1000) / 60) / 60) / 60;
+        const speed = location.speed = km / hour;
+        const acceleration = location.acceleration = (speed - lastSpeed) / (time / 1000);
+        console.log(distCoords, meters, speed);
+        if ((meters > 1 && speed < 100) || this.state.points == 0) {
+          this.setState({lastLocation : location});
+          console.log('set location', location);
+          this.setState({
+            lastLocation: location,
+            points: this.state.points + 1
+          });
+          collection.update({
+            _id: this.state.id
+          }, {
+              $push: {
+                tracking: location
+              }
+            });
+        }
+      }
+
     }
   }
 
-const renderDoc = ({ match, history, deck, distance, stop, startTime, _id }) => {
-    const age = Moment(startTime).fromNow();
-    const primary = "Deck:" + deck.name + " distance: " + distance ? distance : 0 + "m";
-    const secondary = age;
-    const extra = null;
-    return {primary,secondary,extra};
-};
+  startTracking() {
+    const {navButtonStore} = this.props;
+    this.setState({
+      tracking: true
+    });
+    navButtonStore.set(<IconButton className="raised" color="primary" style={{color:"white"}} onClick={this.stopTracking.bind(this)}><StopIcon /></IconButton>);
+    /*
+    buttonStore.set(<Button id="test1" aria-label="track" onClick={() => { this.stopTracking() }}>
+      <StopIcon />
+    </Button>);*/
+    Location.startWatching(this.gotLocation.bind(this));
+  }
 
-const render = ({ doc, match, history }) => {
-    const { formgroupstyle, formlabelstyle, containerstyle } = Meteor;
-    const age = Moment(doc.startTime).fromNow();
-    const xy = utils.trackingtoxy(doc, 150);
-    const lastTime = doc.tracking&&doc.tracking.length?doc.tracking[doc.tracking.length - 1].timestamp:new Date();
+  stopTracking() {
+    Location.stopWatching();
+    const collection = Meteor.modules.track.submissionsCollection;
+    const track = collection.findOne(this.state.id);
+    const distance = 55;//utils.getDistance(utils.trackingtoxy(track));
+    if (distance < 50) {
+      collection.remove(this.state.id);
+      Bert.alert('Distance too short, Track deleted', 'danger');
+    } else if (track.tracking.length < 10) {
+      collection.remove(this.state.id);
+      Bert.alert('Too few points, Track deleted', 'danger');
+    } else {
+      collection.update({
+        _id: this.state.id
+      }, {
+          $set: {
+            stop: this.state.lastLocation,
+            //distance: distance
+          }
+        });
 
-    const dist = Distance(utils.getArrayPoints(doc.tracking));
+    }
+    this.setState(defaultState);
+    clearInterval(this.interval);
+    this.props.history.push('/track');
+  }
 
-    const time = Moment(lastTime).diff(doc.startTime?doc.startTime:new Date());
-    const ms = Moment.duration(time).as('milliseconds');
-    const avgspeed = dist / (ms / 3600000)
-    const formattedTime = Moment.utc(ms).format("HH:mm:ss.SSS");
-    return (doc ? (
-        <div className="View">
-            <svg>
-                <polyline
-                    points={xy}
-                    stroke="red"
-                    strokeWidth="3"
-                    fill="none" />
-            </svg>
-            <div >
-                <div><div style={{ fontWeight: "bold" }}>Tracked</div> {age}</div>
-                <div><div style={{ fontWeight: "bold" }}>Distance</div> {Math.round(dist * 1000)} meters</div>
-                <div><div style={{ fontWeight: "bold" }}>Time</div>{formattedTime}</div>
-                <div><div style={{ fontWeight: "bold" }}>Points</div>{doc.tracking?doc.tracking.length:0}</div>
-                <div><div style={{ fontWeight: "bold" }}>Avg speed</div>{avgspeed}</div>
-                <div><div style={{ fontWeight: "bold" }}>Deck</div> {doc.deck.name}</div>
-            </div>
+  render() {
+    const {
+      history,
+      match,
+    } = this.props;
+    const {
+      time,
+      lastLocation,
+      points
+    } = this.state;
+    const decks = Meteor.modules.deck.clientCollection.find().fetch();
+
+    return (
+      this.state.tracking ?
+        <div className="NewTrack">
+          tracking
+          <h1>{time}</h1>
+          <h3>{points} Points captured</h3>
+          {lastLocation ? (<h4>Latitude:{lastLocation.latitude} Longitude:{lastLocation.longitude}</h4>) : ""}
+
+        </div> : <div className="NewTrack">
+          {decks.length ? <List>
+            {decks.map(({ _id, name, shape, createdAt, updatedAt }) => (
+              <ListItem button onClick={() => { this.setState({ deck: _id }) }} key={_id}>
+                <Checkbox
+                  checked={this.state.deck == _id}
+                  tabIndex="-1"
+                  disableRipple
+                />
+                <ListItemText primary={name} secondary={Moment(createdAt).fromNow()} />
+                <img style={{ height: "2em" }} src={"/images/shapes/" + shape + ".png"} alt={shape} />
+              </ListItem>
+
+            ))}
+          </List> : <div>No decks yet!</div>}
+
         </div>
-    ) :     <NotFound />);
+    )
+
+  }
+}
+
+NewTrack.propTypes = {
+  history: PropTypes.object.isRequired,
 };
 
-export default {
-    routes: [
-        {
-            path: "/"+Collection._name+"/new", component: createContainer(({ match }) => {
-                console.log(button);
-                return {
-                    Editor:NewTrack,
-                    button
-                };
-            }, New)
-        },
-        listRoute(Collection, renderDoc, ()=>(<IconButton className="raised" color="primary" style={{color:"white"}} onClick={(e) => handleUpload(e)}><UploadIcon /></IconButton>), false, true),
-        viewRoute(Collection, render, false, false),
-    ]
-};
+export default NewTrack;

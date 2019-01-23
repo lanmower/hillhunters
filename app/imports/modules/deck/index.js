@@ -1,14 +1,18 @@
 import PM from "platemale";
-console.log(PM);
 const config = {
   name: "deck",
+  subscribe:false,
+  collectionTypes: {
+    client: true,
+    server: false,
+    submission: false
+  },
   schema:
   [
     {
       name:'name',
       type: String,
       label:'Name',
-      default:'',
       required:true,
       requiredMessage: 'specify name.'
     },
@@ -16,7 +20,6 @@ const config = {
       name:'shape',
       type: String,
       label:'Shape',
-      default:'',
       required:true,
       element: 'imageSelect',
       options:[
@@ -33,7 +36,6 @@ const config = {
       name:'edge',
       type: String,
       label:'Edge',
-      default:'',
       required:true,
       element: 'imageSelect',
       options:[
@@ -47,7 +49,6 @@ const config = {
       name:'mount',
       type: String,
       label:'Mount',
-      default:'',
       required:true,
       element: 'imageSelect',
       options:[
@@ -61,7 +62,6 @@ const config = {
       name:'curve',
       type: String,
       label:'Curve',
-      default:'',
       required:true,
       element: 'imageSelect',
       options:[
@@ -77,7 +77,6 @@ const config = {
       name:'griptape',
       type: String,
       label:'Grip Tape',
-      default:'',
       required:true,
       element: 'select',
       options:[
@@ -91,7 +90,6 @@ const config = {
       name:'bushinghardness',
       type: Number,
       label:'Bushing Hardness',
-      default:65,
       required:true,
       element: 'slider',
       min:65,
@@ -103,7 +101,6 @@ const config = {
       name:'orientationfront',
       type: String,
       label:'Front wheel orientation',
-      default:'',
       required:true,
       element: 'imageSelect',
       options:[
@@ -117,7 +114,6 @@ const config = {
       name:'orientationrear',
       type: String,
       label:'Rear wheel orientation',
-      default:'',
       required:true,
       element: 'imageSelect',
       options:[
@@ -131,7 +127,6 @@ const config = {
       name:'wheelhardness',
       type: Number,
       label:'Wheel Hardness',
-      default:65,
       required:true,
       element: 'slider',
       min:65,
@@ -143,7 +138,6 @@ const config = {
       name:'wheelsize',
       type: Number,
       label:'Wheel Size',
-      default:65,
       required:true,
       element: 'slider',
       min:65,
@@ -155,7 +149,6 @@ const config = {
       name:'boardlength',
       type: Number,
       label:'Board Length',
-      default:65,
       required:true,
       element: 'slider',
       min:65,
@@ -167,7 +160,6 @@ const config = {
       name:'bearings',
       type: String,
       label:'Bearing Type',
-      default:'',
       required:true,
       element: 'select',
       options:[

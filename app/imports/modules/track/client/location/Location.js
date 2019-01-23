@@ -101,7 +101,7 @@ const Location = {
         } else {
             //Throw enabled back if client is browser
             callback && callback('Enabled');
-        } 
+        }
     },
     getReactivePosition : function() {
         return reactiveLocation.get();
